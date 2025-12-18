@@ -1,0 +1,61 @@
+void main(){
+    int a = 12;
+   // String c=a;//error asbay eikhane bolbey tomi to String er moddey int bortay parba na ..tai eta convert kortay hoibo ..
+   String c = a.toString(); // a ta ke string e convert korcay 
+    
+    print(c);
+    print("$c");
+    
+    
+    //////////
+    double b = 34.567887;
+    int d = b.toInt();//int tey convert korci
+     print(d);
+     print(b.toStringAsFixed(4));//koy gor porjonto dibo..
+    //////////
+     
+     //ei value gula key reverse korey ager formate e nibo .. //typecaste
+     int e = int.parse(c);
+     print(e+a);
+     
+     //
+     
+     
+     //for loop..........
+     for(int n=1; n<=10; n=n+1){
+         print("Task no $n");
+         
+     }
+     //..................
+     
+     //================
+     List<String> students=["Mohib","Hamin","Shahrear","Taskin"];
+     
+     for(int i=0; i<students.length;i++){
+         print("$i: ${students[i]}");
+     }
+    //================
+    
+    
+     //-------------------for in loop
+      List<String> Student=["Tanvir","Mehedi","Touhid"];
+      
+      for(String S in Student){
+          print(S);
+      }
+     //-------------------
+     
+     //'''''''''''''''''''''
+     Map<String, String> universityes={
+         "DU":"Dhaka University",
+         "NSU":"N   S   U",
+         "RUET": "R  U  E  T"
+     };
+     
+     //forEach
+     universityes.forEach((key,value){
+         print("$key : $value");
+     });
+      //'''''''''''''''''''''
+     
+}
