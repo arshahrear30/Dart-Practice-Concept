@@ -1,0 +1,25 @@
+//Exception /fault Handling
+//Runtime error 
+//Compiler time error
+//try catch diya check korbo.
+void main(){
+    
+    try{
+        dynamic a= 12/0;
+        int b = a +23;
+        print(a);
+        print(b);
+        
+    //} on TimeoutException {
+      //  print("Print time out");
+      //ei rokom bibinno doron er exception acay ..
+        
+    } catch (err){
+        print(err);
+    }finally {
+        print("pura code e joto error e hok finally keyword er vitor ja code thakbay ta must execution hoiboi .. ")
+    }
+    
+    print("Hello world");
+    
+}
