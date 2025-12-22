@@ -1,1 +1,58 @@
+import 'package:flutter/material.dart';
+// Flutter এর Material UI প্যাকেজ ইমপোর্ট করা হয়েছে (Google-এর ডিফল্ট UI)
+
+// অ্যাপ চালু হওয়ার শুরু এখান থেকেই
+void main() {
+  runApp(MyApp());
+  // runApp একটি widget নেয়, এখানে MyApp widget দেওয়া হয়েছে
+}
+
+// Hot reload  > Ctrl + S
+// Hot restart > Ctrl + Shift + \
+
+// MyApp একটি StatelessWidget
+// StatelessWidget মানে এর state পরিবর্তন হয় না
+class MyApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {// build মেথড UI তৈরি করে
+    return MaterialApp(
+      debugShowCheckedModeBanner: false, // ডিফল্ট debug ব্যানার বন্ধ করা হয়েছে
+
+      title: 'A R Shahrear', // অ্যাপ ক্লোজ থাকলে background-এ এই নাম দেখা যায়
+
+      home: Scaffold(// Scaffold হলো basic app structure
+        backgroundColor: Colors.brown, // পুরো স্ক্রিনের background কালার
+
+        appBar: AppBar(
+          backgroundColor: Colors.indigo, // AppBar-এর background কালার
+
+          centerTitle: true, // টাইটেলকে মাঝখানে আনা হয়েছে
+
+          title: Text(
+            'Homees',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ), // AppBar-এর টাইটেল
+
+          leading: Icon(
+            Icons.adb_rounded,
+            color: Colors.amber,
+            size: 32,
+          ), // AppBar-এর বাম পাশে আইকন
+        ), // AppBar শেষ
+
+        body: Center(// body এর কনটেন্টকে সেন্টারে আনা হয়েছে
+          child: Text(
+            'Hello show',
+            style: TextStyle(color: Colors.white),
+          ),
+        ), // body শেষ
+      ), // Scaffold শেষ
+    ); // MaterialApp শেষ
+  }
+}
 
