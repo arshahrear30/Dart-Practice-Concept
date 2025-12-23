@@ -1,0 +1,281 @@
+import 'package:flutter/material.dart';
+
+
+void main() {
+  runApp(const MyApp()); // MyApp widget রান করানো হচ্ছে
+}
+
+
+
+
+class MyApp extends StatelessWidget {  // Root widget (পুরো অ্যাপের মূল widget)
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false, // ডিবাগ ব্যানার বন্ধ
+      title: 'A R Shahrear',
+      home: const HomeScreen(), // প্রথম যে স্ক্রিন দেখাবে
+    );
+  }
+}
+
+
+
+
+//---- Home Screen widget ----
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(//pura screen jeta diya niyontron kori
+      backgroundColor: Colors.amberAccent,// পুরো স্ক্রিনের ব্যাকগ্রাউন্ড কালার
+
+//=============================
+      appBar: AppBar( // AppBar (উপরে থাকা বার)
+
+
+        backgroundColor: Colors.indigo,
+        centerTitle: true,
+        title: const Text(  'Home',
+
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+
+        ),
+
+
+        leading: const Icon(  // বাম পাশে আইকন
+          Icons.adb_rounded,
+          color: Colors.amber,
+          size: 32,
+        ),
+
+
+      ),
+//=============================
+
+      // স্ক্রিনের মূল অংশ
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+
+           children: [
+
+
+
+//''''''''''''''''''''''''''''''''''
+             Container(
+                 width: 200,
+                 height: 100,
+                 
+                 margin: EdgeInsets.all(16),//khatar bahir a margin // বাইরের ফাঁকা জায়গা (বর্ডারের বাইরে)
+                 //margin: EdgeInsets.symmetric(vertical: 10,horizontal: 30),
+                 padding:EdgeInsets.symmetric(vertical: 10,horizontal: 30),//khatar bitor e margin mean padding// ভিতরের ফাঁকা জায়গা (বর্ডারের ভিতরে)
+               
+               decoration: BoxDecoration( // Container ডিজাইন
+                 color: Colors.white,
+                 border:Border.all(color:Colors.black, width:2),
+                 //borderRadius: BorderRadius.circular(15),
+                 borderRadius: BorderRadius.only(topRight: Radius.circular(25),bottomLeft: Radius.circular(25),),
+                 
+                 
+               ),
+               
+               
+               
+               child: Text('Hello'),
+               alignment: Alignment.center,
+
+             ),
+
+//''''''''''''''''''''''''''''''''''
+
+
+
+//+++++++++++++++++++++++++++++++
+           ElevatedButton(
+
+          onPressed: () {
+            print('Email has been sent');// বাটনে চাপ দিলে কনসোলে মেসেজ দেখাবে
+          },
+
+          onLongPress: (){
+            print('Email deleted!');
+          },
+
+
+          child: const Text(
+            'Send Email',
+            style: TextStyle(
+              color: Colors.indigo,
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
+            ),
+          ), // বাটনের লেখা
+
+
+        ),//send email
+//+++++++++++++++++++++++++++++++
+
+
+//------------------------------
+           TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.black,
+              //------
+              textStyle: TextStyle(
+                fontSize: 34
+              )
+              //------
+            ),
+
+            //-------------------
+            onPressed: () {
+              print('Resent');// বাটনে চাপ দিলে কনসোলে মেসেজ দেখাবে
+            },
+            //-------------------
+
+            //-------------------
+            onLongPress: (){
+              print('Resent press long');
+              },
+            //-------------------
+
+            child: Text('Resend'),
+),//resend
+//------------------------------
+
+
+
+
+           IconButton(onPressed: (){}, icon: Icon(Icons.add)),
+           IconButton(onPressed: (){}, icon: Icon(Icons.remove)),
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+             OutlinedButton(
+               onPressed: () {
+                 print('OutlinedButton sent');// বাটনে চাপ দিলে কনসোলে মেসেজ দেখাবে
+                },
+
+               onLongPress: (){
+                 print('OutlinedButton deleted!');
+               },
+
+               child: Text('Outlined Button')),//outlined
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+/////////////////////////////////////////////////////
+           Padding(
+             padding: const EdgeInsets.all(18.0),
+             child: TextField(
+
+              // maxLines: 4,
+
+               decoration: InputDecoration(
+                 fillColor: Colors.black12,
+                 filled: true,
+                 hintText: 'Enter your email',
+
+
+
+                 hintStyle: TextStyle(
+                   color: Colors.white,
+                   fontSize: 24,
+                 ),
+
+                 suffixIcon: Icon(Icons.email,color: Colors.white70),
+                 label: Text('Email'),
+                 labelStyle: TextStyle(
+                   color: Colors.white,
+
+                 ),
+
+               ),
+             ),
+           ),//email
+/////////////////////////////////////////////////////
+
+
+           SizedBox(
+
+             height: 10,
+             width: 10,
+
+           ),
+
+
+//ppppppppppppppppppppppppppppppppppppp
+
+           Padding(
+             padding: const EdgeInsets.all(18.0),
+             child: TextField(
+
+               obscureText: true,// পাসওয়ার্ড লুকানো থাকবে
+               controller: TextEditingController(),
+
+               decoration: InputDecoration(
+                 fillColor: Colors.black12,
+                 filled: true,
+                 hintText: 'Enter your password',
+
+                 hintStyle: TextStyle(
+                   color: Colors.white,
+                   fontSize: 24,
+                 ),
+
+                 suffixIcon: Icon(Icons.password,color: Colors.white70),
+                 label: Text('Password'),
+                 labelStyle: TextStyle(
+                   color: Colors.white,
+
+                 ),
+
+                 // Border স্টাইল
+                 border: OutlineInputBorder(),
+                 enabledBorder: OutlineInputBorder(
+                   borderSide: BorderSide(
+                     color: Colors.white,
+                   ),
+                 ),
+
+
+                 disabledBorder: OutlineInputBorder(
+                   borderSide: BorderSide(
+                     color: Colors.red,
+                   ),
+                 ),
+
+
+                 focusedBorder: OutlineInputBorder(
+                   borderSide: BorderSide(
+                     color: Colors.blue,
+                   ),
+                 ),
+
+
+
+               ),
+             ),
+           ),//password
+
+//ppppppppppppppppppppppppppppppppppppp
+
+
+
+        ],
+        ),
+
+      ),
+    );
+  }
+}
