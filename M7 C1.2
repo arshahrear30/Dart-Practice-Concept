@@ -1,1 +1,234 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const LiveClassProject());
+}
+
+class LiveClassProject extends StatelessWidget {
+  const LiveClassProject({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(// অ্যাপ চালু হলে প্রথম যে স্ক্রিন দেখাবে
+      home: HomeScreen(),
+    ); // MaterialApp
+  }
+}
+
+/// Route
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      appBar: AppBar(
+        title: const Text('Settings'),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+
+      ), // AppBar
+      body: Center(  // স্ক্রিনের মূল অংশ
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Home',
+              style: TextStyle(fontSize: 24),
+            ), // Text
+
+
+            ElevatedButton(// Home → Settings যাওয়ার বাটন
+              onPressed: () {
+                /// Navigation - Route home -> Route settings
+                /// Navigator
+                /// Navigator.typeOfNavigation(currentLocation, Destination);
+                /// Navigation - Push, Pop(Back), replace, replaceAll, removeUntil
+                Navigator.push(// Navigator.push নতুন স্ক্রিন stack এ যোগ করে
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(),
+                  ), // MaterialPageRoute
+                );
+              },
+              child: Text('Go to settings'),
+            ), // ElevatedButton
+
+
+
+
+
+
+            ElevatedButton( // Home → Orders যাওয়ার বাটন
+              onPressed: () {
+                /// Navigation - Route home -> Route settings
+                /// Navigator
+                /// Navigator.typeOfNavigation(currentLocation, Destination);
+                /// Navigation - Push, Pop(Back), replace, replaceAll, removeUntil
+                Navigator.push(// Orders স্ক্রিনে যাওয়ার জন্য push ব্যবহার
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductListScreen(productName: 'Test'),
+
+                  ), // MaterialPageRoute
+                );
+              },
+              child: Text('Go to Product list'),
+            ), // ElevatedButton
+
+
+          ],
+
+
+        ), // Column
+      ), // Center
+    ); // Scaffold
+  }
+}
+
+
+
+
+/// Route
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+      ), // AppBar
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Text(// Settings লেখা দেখানোর জন্য
+              'Settings',
+              style: TextStyle(fontSize: 24),
+            ), // Text
+
+
+
+            ElevatedButton(// Settings → Home যাওয়ার বাটন
+              onPressed: () {// Home স্ক্রিনে যাবে// আগের সব স্ক্রিন stack থেকে মুছে যাবে
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                      (route) => false,
+                );
+              },
+              child: Text('Home'),
+            ), // ElevatedButton
+          ],
+        ), // Column
+      ), // Center
+    ); // Scaffold
+  }
+}
+
+
+
+
+/// Route
+class OrdersScreen extends StatelessWidget {
+  const OrdersScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Orders'),
+      ), // AppBar
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Text(
+              'Orders',
+              style: TextStyle(fontSize: 24),
+            ), // Text
+
+
+            TextButton( // Orders → Settings যাওয়ার বাটন
+              onPressed: () {// pushReplacement:// Orders স্ক্রিন remove হবে// Settings স্ক্রিন replace হবে
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(),
+                  ), // MaterialPageRoute
+                );
+              },
+              child: Text('Go to settings'),
+            ), // TextButton
+
+
+
+            TextButton(// আগের স্ক্রিনে ফেরত যাওয়ার বাটন
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Back to home'),
+            ), // TextButton
+
+          ],
+
+
+        ), // Column
+      ), // Center
+    ); // Scaffold
+  }
+}
+
+
+
+
+//stless likle siggestion kore
+class ProductListScreen extends StatelessWidget {
+  final String productName;
+  const ProductListScreen({super.key, required this.productName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product List'),
+      ),//AppBar
+      body:ListView.builder(itemBuilder: (context,index){
+
+        return ListTile(
+          onTap: (){
+            Navigator.push( context, MaterialPageRoute(builder: (context){
+              return ProductListScreen(productName: index.toString());
+
+            }));//MaterialPageRoute
+
+        },
+          title: Text(index.toString()),
+        );//ListTile
+
+    }
+    ),//ListView.builder
+    );//Scaffold
+  }
+}
+
+
+class ProductDetailsScreen extends StatelessWidget {
+  const ProductDetailsScreen({super.key,required this.productName});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+    
+
+
+  }
+}
+
+
+
 
