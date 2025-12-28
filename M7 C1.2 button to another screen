@@ -15,6 +15,8 @@ class LiveClassProject extends StatelessWidget {
   }
 }
 
+
+
 /// Route
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,16 +25,19 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
+
       appBar: AppBar(
         title: const Text('Settings'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-
       ), // AppBar
+
       body: Center(  // স্ক্রিনের মূল অংশ
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
+
             Text(
               'Home',
               style: TextStyle(fontSize: 24),
@@ -69,13 +74,33 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(// Orders স্ক্রিনে যাওয়ার জন্য push ব্যবহার
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProductListScreen(productName: 'Test'),
+                    builder: (context) => ProductListScreen(),
+
+                  ), // MaterialPageRoute
+                );
+              },
+              child: Text('Go to Orders'),
+            ), // ElevatedButton
+
+
+
+            ElevatedButton( // Home → Orders যাওয়ার বাটন
+              onPressed: () {
+                /// Navigation - Route home -> Route settings
+                /// Navigator
+                /// Navigator.typeOfNavigation(currentLocation, Destination);
+                /// Navigation - Push, Pop(Back), replace, replaceAll, removeUntil
+                Navigator.push(// Orders স্ক্রিনে যাওয়ার জন্য push ব্যবহার
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailsScreen(productName: 'Test Product'),
 
                   ), // MaterialPageRoute
                 );
               },
               child: Text('Go to Product list'),
             ), // ElevatedButton
+
 
 
           ],
@@ -188,8 +213,7 @@ class OrdersScreen extends StatelessWidget {
 
 //stless likle siggestion kore
 class ProductListScreen extends StatelessWidget {
-  final String productName;
-  const ProductListScreen({super.key, required this.productName});
+  const ProductListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -197,14 +221,18 @@ class ProductListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Product List'),
       ),//AppBar
-      body:ListView.builder(itemBuilder: (context,index){
+      body:ListView.builder(
+          itemCount: 20 ,//0-19 porjonto 
+          itemBuilder: (context,index){
 
         return ListTile(
           onTap: (){
             Navigator.push( context, MaterialPageRoute(builder: (context){
-              return ProductListScreen(productName: index.toString());
+              return ProductDetailsScreen(productName: index.toString());
 
-            }));//MaterialPageRoute
+            })).then((value){
+              print(value); //ek screen theke onno screen e data nia astay then use hoy ..
+            });//MaterialPageRoute
 
         },
           title: Text(index.toString()),
@@ -217,15 +245,38 @@ class ProductListScreen extends StatelessWidget {
 }
 
 
+
+
+
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key,required this.productName});
+  final String productName;//required dici maney must ditay hoibo ..
+  final double? price;//? dewar maney user icca hoilay dibay na hoilay dibay na ..//pore ata ar required rakbo na .. just this. kore dibo ...  
+  const ProductDetailsScreen({super.key, required this.productName, this.price});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
-    
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Product Details'),
+      ),//AppBar
+      body:Center(
+        child: Column(
+          children: [
+            Text(productName, style: TextStyle(
+                fontSize: 24
 
+            ),),
 
+            ElevatedButton(onPressed: (){
+              Navigator.pop(context,'Number is - $productName');//ei ta then er modde jabe 
+            }, child: Text('Back'),)
+
+          ],
+        ),
+
+      ),//center
+
+    );//Scaffold
   }
 }
 
