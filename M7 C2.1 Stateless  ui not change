@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+
+
+
+void main() {
+  runApp(MyApp());
+}
+
+
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomeScreen(),
+    ); // MaterialApp
+  }
+}
+
+
+// দেখবা এই + button এ click করলে এটা UI update হবে না, 
+// কারণ system থেকে বলা আছে যদি StatelessWidget use করি তাহলে UI update হয় না। 
+// backend এ 1 করে যোগ হবে but UI তে no change because stateless।
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
+
+  int counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ), // AppBar
+      body: Center(
+        child: Text(
+          counter.toString(),
+        ), // Text
+      ), // Center
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          counter = counter + 1;
+          print(counter);
+        },
+        child: Icon(Icons.add),
+      ), // FloatingActionButton
+    ); // Scaffold
+  }
+}
+
