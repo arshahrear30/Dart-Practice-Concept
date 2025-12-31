@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+
+
+
+void main() {
+  runApp(MyApp());
+}
+
+
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: CounterScreen(),
+    ); // MaterialApp
+  }
+}
+
+/// 1. Extends stateful widget
+/// 2. Create a State
+
+
+//stateful er jonno 2 ta class lagey ...
+// ekta state hold korey arekta screen manage kore
+//shortcut stateful widget build : stful :auto 2ta class toiri hoibow..
+
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() => CounterState();
+}
+
+
+
+
+
+/// state  :
+class CounterState extends State<CounterScreen> {
+  int counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ), // AppBar
+      body: Center(
+        child: Column(
+          children: [
+            Text(
+              counter.toString(),
+              style: TextStyle(fontSize: 34,
+              fontWeight: FontWeight.bold
+              ),
+            ),
+            ElevatedButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ProfileScreen(userName: 'Rahim hasan'),
+                ), // MaterialPageRoute
+              );
+            }, child: Text('Profile')) // ElevatedButton
+
+          ],
+        ), // coloum
+
+
+
+      ), // Center
+      floatingActionButton: FloatingActionButton(
+        onPressed: () { // press korley ki hoibo ...
+          counter = counter + 1;
+          print(counter);
+          setState(() {});//etar karon e number update hoccay..etar karon e pura method abar re rander hoy
+        },
+        child: Icon(Icons.add),
+      ), // FloatingActionButton // etao mul button hisabey kaz korey
+    ); // Scaffold
+  }
+}
+
+
+
+//2ta stateful ke connect korci ..
+
+
+// Widget class
+class ProfileScreen extends StatefulWidget {
+  final String userName;
+  const ProfileScreen({super.key, required this.userName});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();//ei method diya connect
+}
+
+// state class -> widget class
+class _ProfileScreenState extends State<ProfileScreen> {//_ deya maney private
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+      ), // AppBar
+      body: Center(
+        child: Text(widget.userName),
+      ), // Center
+    ); // Scaffold
+  }
+}
