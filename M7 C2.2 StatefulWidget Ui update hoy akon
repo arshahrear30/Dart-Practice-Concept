@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+
+
+
+void main() {
+  runApp(MyApp());
+}
+
+
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: CounterScreen(),
+    ); // MaterialApp
+  }
+}
+
+/// 1. Extends stateful widget
+/// 2. Create a State
+
+
+//stateful er jonno 2 ta class lagey ...
+// ekta state hold korey arekta screen manage kore
+//shortcut stateful widget build : stful :auto 2ta class toiri hoibow..
+
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() => CounterState();
+}
+
+
+
+
+
+/// state  :
+class CounterState extends State<CounterScreen> {
+  int counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ), // AppBar
+      body: Center(
+        child: Text(
+          counter.toString(),
+          style: TextStyle(fontSize: 34,
+          fontWeight: FontWeight.bold),
+        ), // Text
+      ), // Center
+      floatingActionButton: FloatingActionButton(
+        onPressed: () { // press korley ki hoibo ...
+          counter = counter + 1;
+          print(counter);
+          setState(() {});//etar karon e number update hoccay..
+        },
+        child: Icon(Icons.add),
+      ), // FloatingActionButton // etao mul button hisabey kaz korey
+    ); // Scaffold
+  }
+}
