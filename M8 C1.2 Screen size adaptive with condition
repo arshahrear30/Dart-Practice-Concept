@@ -1,0 +1,76 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+//import 'package:untitled/main.dart'; //package input : obbosoi eta korar cesta korbo ..
+//path input..                            import 'practice.dart';
+//path onno folder er ta input korbo ..   import './practice.dart';
+
+/// MediaQuery
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Size size = MediaQuery.of(context).size; //eta ager version
+    Size size = MediaQuery.sizeOf(context);
+    print(size);
+    print(size.width);
+    print(size.height);
+    print(size.aspectRatio);
+    print(size.flipped);
+
+
+    Orientation orientation = MediaQuery.orientationOf(context);
+    print(orientation);
+    List<DisplayFeature> displayFeatures = MediaQuery.displayFeaturesOf(context);
+    print(displayFeatures);
+    print(MediaQuery.devicePixelRatioOf(context));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Intro to TFS'),
+      ), // AppBar
+
+        body: LayoutBuilder(
+            builder: (context, constraints) {
+              print(constraints.maxWidth);
+              //onek size er screen niye kaz korlay ei rokom condition use koray kaz kore ui handal kortay hoy ..
+              if (constraints.maxWidth > 500) {
+                return Center(child: Text('Too big screen'));
+              }
+
+              else {
+                return Center(
+                  child: OrientationBuilder(
+                      builder: (context, orientation) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(orientation == Orientation.portrait
+                                ? 'Portrait'
+                                : "Landscape"), // Text
+                            Wrap(
+                              alignment: WrapAlignment.center,
+                              crossAxisAlignment: WrapCrossAlignment.start,
+                              children: [
+                                Text('Hi i am Bangladeshi'),
+                                Text('BANGLADESH'),
+                                Text('We are Bangladeshi'),
+                                Text('Hello this is A r shahrear'),
+                                Text('Once again shahrear full comeback'),
+                                Text('Hellow world'),
+                                Text('This is new Bangladesh'),
+                              ],
+                            ) // Wrap
+                          ],
+                        ); // Column
+                      }
+                  ),// OrientationBuilder
+                );// Center
+              }
+            }
+        )//LayoutBuilder
+    ); // Scaffold
+  }
+}
+
