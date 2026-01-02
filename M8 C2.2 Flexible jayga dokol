@@ -1,0 +1,70 @@
+import 'package:flutter/material.dart';
+import 'package:shahrearapp/main.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const HomeScreen(),
+    );
+  }
+}
+
+/// MediaQuery
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ), // AppBar
+      body: Column(
+        children: [
+          /// Ratio := Width : height
+          /// Ratio := 16/16
+          /// 100 : 100
+
+          Flexible(
+            fit: FlexFit.tight, //ata use kori screen er pura jayga use korbay ..
+            //fit: FlexFit.loose, //ata use kori jotutuku dorkar toto tuku use korbay ..
+            flex: 5,// atar maney o pura screen er 5 bag onksho niya kaz korbay
+            // jokon 2-3 jaygay Flexible use kori tokon flex diya screen er onksho bag kore deya jay ..
+            child: Container(
+              color: Colors.amber,
+              width: MediaQuery.sizeOf(context).width,
+            ), // Container
+          ), // Flexible
+          
+          
+          
+          
+          Container(
+            width: MediaQuery.of(context).size.width ,
+              //etar maney screen e jotu tuku khali acay purata use koro..
+            height: MediaQuery.of(context).size.width ,
+          color: Colors.blue,
+
+          child: FractionallySizedBox(
+            widthFactor: 0.3,//0-1 porjonto
+            heightFactor: 0.7,
+            child: Container(
+              color: Colors.green,
+            ), // Container
+
+          ) // FractionallySizedBox
+          )
+            ],
+      ), // Column
+    ); // Scaffold
+  }
+}
