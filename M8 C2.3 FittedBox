@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:shahrearapp/main.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const HomeScreen(),
+    );
+  }
+}
+
+/// MediaQuery
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ), // AppBar
+      body: Column(
+        children: [
+          /// Ratio := Width : height
+          /// Ratio := 16/16
+          /// 100 : 100
+
+          Flexible(
+            fit: FlexFit.tight, //ata use kori screen er pura jayga use korbay ..
+            //fit: FlexFit.loose, //ata use kori jotutuku dorkar toto tuku use korbay ..
+            flex: 1,// atar maney o pura screen er 5 bag onksho niya kaz korbay
+            // jokon 2-3 jaygay Flexible use kori tokon flex diya screen er onksho bag kore deya jay ..
+            child: Container(
+              color: Colors.amber,
+              width: MediaQuery.sizeOf(context).width,
+            ), // Container
+          ), // Flexible
+
+
+          Expanded(
+            flex: 10,
+            child: Container(
+              color: Colors.lightGreenAccent,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: 100,
+                height: 20,
+                child: FittedBox( //ami size jotu tuku dici otu tukur modde jemnei howk joto lekha thakuk dekhabay
+                  child: Text(
+                    ' A R shahrear is a good boy he is an app developer .. he is a good coder ..he always  maintain discipline ',
+                  ), // Text
+                ), // FittedBox
+              ), // SizedBox
+            ), // Container
+          ), // Expanded
+
+
+            ],
+      ), // Column
+    ); // Scaffold
+  }
+}
