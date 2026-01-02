@@ -1,0 +1,134 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+/// Constructor
+/// CreateState
+/// 1.InitState
+
+/// 2.DidChangeDependencies - dependency change
+/// build - setState
+/// 3.didUpdateWidget - if Parent er configuration change
+
+/// 4.deactive
+/// 5.dispose
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: const CounterScreen(),
+    ); // MaterialApp
+  }
+}
+
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() => CounterState();
+}
+
+
+//ui er onek jinish rebuid korar dorkar poray na ..
+// karon prottek ta jinish rebuild kortay gelay cpu power consume baray ...
+// tai "const:" use kori .. tailay ar 2nd bar rebuild hoy na
+
+
+/// state  :
+class CounterState extends State<CounterScreen> {
+  int counter = 0;
+
+  // 1  Widget প্রথমবার তৈরি হলে এই মেথড কল হয়
+  @override
+  void initState() {
+    print('init state');
+    // Task when screen start
+    //screen e asar por i ki show kortay hoibo ..
+    // 👉 Screen এ ঢোকার সাথে সাথেই যেসব কাজ একবারই করতে হবে
+    // যেমন:
+    // - API call
+    // - Animation start
+    // - Controller initialize
+    // - Initial value set করা
+
+    super.initState();
+  }
+
+  // 2 initState() এর পরেই প্রথমবার কল হয়
+  // এবং dependency (Theme, MediaQuery, Provider ইত্যাদি) পরিবর্তন হলে আবার কল হয়
+  @override
+  void didChangeDependencies() {
+    print('Did change dependency');
+    super.didChangeDependencies();
+
+    // 👉 এখানে BuildContext ব্যবহার করে data নেওয়া নিরাপদ
+    // যেমন:
+    // Theme.of(context)
+    // MediaQuery.of(context)
+    // Provider.of(context)
+
+  }
+
+  // 3 Parent widget rebuild হলে এবং নতুন widget আসলে এই মেথড কল হয়
+  @override
+  void didUpdateWidget(covariant CounterScreen oldWidget) {
+    print('did update widget');
+    super.didUpdateWidget(oldWidget);
+    // 👉 পুরনো widget (oldWidget) আর নতুন widget তুলনা করা যায়
+    // যদি কোনো prop / value change হয় তাহলে সেই অনুযায়ী কাজ করা যায়
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+      ), // AppBar
+      body: Center(
+        child: Text(
+          counter.toString(),
+          style: const TextStyle(fontSize: 34,
+              fontWeight: FontWeight.bold),
+        ), // Text
+      ), // Center
+      floatingActionButton: FloatingActionButton(
+        onPressed: () { // press korley ki hoibo ...
+          counter = counter + 1;
+          print(counter);
+          setState(() {});//etar karon e number update hoccay..
+        },
+        child: const Icon(Icons.add),
+      ), // FloatingActionButton // etao mul button hisabey kaz korey
+    ); // Scaffold
+  }
+
+  //4  Widget tree থেকে সাময়িকভাবে remove হলে কল হয়
+  @override
+  void deactivate() {
+    print('deactived');
+    super.deactivate();
+    // 👉 সাধারণত খুব কম ব্যবহার হয়
+    // Widget অন্য জায়গায় move হলে বা temporarily remove হলে কল হয়
+  }
+
+  //5 Widget permanently destroy হলে এই মেথড কল হয়
+  @override
+  void dispose() {
+    print('dispose');
+    super.dispose();
+
+    // 👉 এখানে সব resource clean up করতে হয়
+    // যেমন:
+    // - Controller dispose
+    // - Stream close
+    // - Animation dispose
+    // - Timer cancel
+  }
+
+}
