@@ -1,0 +1,147 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
+    );
+  }
+}
+
+
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  TextEditingController _field1 = TextEditingController();
+  TextEditingController _field2 = TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  double result = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("AR Calculator"),
+        centerTitle: true,
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children:  [
+              TextFormField(//validator anar jonno amra TextField use korbo
+                  controller: _field1,//etar bitor e text get kortay parey ..
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      hintText: 'Field 1'
+                  ),
+                  validator: (String? value){
+                    if(value?.isEmpty ?? true ){
+                      return 'Field 1 is required';
+                    }
+                    return null;
+                  }
+              ),
+
+              TextFormField(
+                  controller: _field2,
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  decoration: const InputDecoration(
+                      hintText: 'Field 2'
+                  ),
+                  validator: (String? value){
+                    if(value?.isEmpty ?? true ){
+                      return 'Field 2 is required';
+                    }
+                    return null;
+                  }
+              ),
+              const SizedBox(height: 16,),
+
+              ButtonBar(//button row er moto kora jaiboo ..
+                alignment: MainAxisAlignment.center,
+                children: [
+
+                  ElevatedButton.icon(
+                      onPressed: (){
+                        if(_formKey.currentState!.validate()){
+                          double num1 = parselToDouble(_field1.text.trim());//asey pashe phaka space ketey dibay
+                          double num2 = parselToDouble(_field2.text.trim());
+                          result = addition(num1, num2);//👍
+                          print(result);
+                          setState(() {}); // UI update
+                        }
+                      },
+                      icon: const Icon(Icons.add),
+                      label: const Text("Add")
+                  ),
+
+                  ElevatedButton.icon(
+                      onPressed: (){
+                        if(_formKey.currentState!.validate()){
+                          double num1 = parselToDouble(_field1.text.trim());//asey pashe phaka space ketey dibay
+                          double num2 = parselToDouble(_field2.text.trim()); //👍nicayer method er karon e parselToDouble liktay parci ,,
+                          result = subtraction(num1, num2);//👍
+                          print(result);
+                          setState(() {}); // UI update
+                        }
+                      },
+                      icon: const Icon(Icons.remove),
+                      label: const Text("Sub")
+                  ),
+
+                ],
+              ),
+
+              Text(
+                'Result is : $result',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  //2.2 👍method use korci notun kore bujar jonno ...
+
+  double parselToDouble(String text) {
+    return double.tryParse(text)??0;
+  }
+
+  double addition(double num1, double num2) {
+    return num1 + num2;
+  }
+
+  double subtraction(double num1, double num2) {
+    return num1 - num2;
+  }
+
+
+
+
+}
